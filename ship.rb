@@ -4,6 +4,7 @@ class Ship
     @length = length
     @coverage = []
     @on_board = false
+    @hits = []
   end
 
   def place(x, y, horizontal)
@@ -29,5 +30,18 @@ class Ship
     other_ship.coverage.any? do |coordinate|
       covers?(coordinate[0], coordinate[1])
     end
+  end
+
+  def fire_at(x, y)
+    if @coverage.include?([x, y])
+      @hits << [x, y]
+      true
+    else
+      false
+    end
+  end
+
+  def sunk?
+    @hits == @coverage
   end
 end
