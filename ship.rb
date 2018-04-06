@@ -1,47 +1,43 @@
 class Ship
-  attr_reader :length, :coverage
+  attr_reader :length
+
   def initialize(length)
     @length = length
-    @coverage = []
-    @on_board = false
+    @positions = []
     @hits = []
   end
 
+  def placed_on_board?
+    @positions != []
+  end
+
   def place(x, y, horizontal)
-    unless on_board?
+    unless placed_on_board?
       if horizontal
-        x.upto(x + (length - 1)) { |x| @coverage << [x, y] }
+        x.upto(x + (length - 1)) { |x| @positions << Position.new(x, y) }
       else
-        y.upto(y + (length - 1)) { |y| @coverage << [x, y] }
+        y.upto(y + (length - 1)) { |y| @positions << Position.new(x, y) }
       end
-      @on_board = true
     end
   end
 
   def covers?(x, y)
-    @coverage.include?([x, y])
-  end
-
-  def on_board?
-    @on_board
+    @positions.each do |position|
+      return position if position.x == x && position.y == y
+    end
+    false
   end
 
   def overlaps_with?(other_ship)
-    other_ship.coverage.any? do |coordinate|
-      covers?(coordinate[0], coordinate[1])
-    end
+    @positions.any? { |position| other_ship.covers?(position.x, position.y) }
   end
 
   def fire_at(x, y)
-    if @coverage.include?([x, y])
-      @hits << [x, y]
-      true
-    else
-      false
-    end
+    position = covers?(x, y)
+    position && position.hit!
   end
 
   def sunk?
-    @hits == @coverage
+    !@positions.empty? && @positions.all?(&:hit?)
   end
 end
