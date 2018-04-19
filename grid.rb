@@ -4,7 +4,8 @@ class Grid
   end
 
   def has_ship_on?(x, y)
-    @ships.any? { |ship| ship.covers?(x, y) }
+    @ships.each { |ship| return ship if ship.covers?(x, y) }
+    false
   end
 
   def place_ship(ship, x, y, horizontal)
@@ -12,6 +13,11 @@ class Grid
     unless @ships.any? { |s| s.overlaps_with?(ship) }
       @ships << ship
     end
+  end
+
+  def fire_at(x, y)
+    ship = has_ship_on?(x, y)
+    ship && ship.fire_at(x, y)
   end
 
   def display

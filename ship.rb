@@ -4,7 +4,6 @@ class Ship
   def initialize(length)
     @length = length
     @positions = []
-    @hits = []
   end
 
   def placed_on_board?
@@ -39,5 +38,15 @@ class Ship
 
   def sunk?
     !@positions.empty? && @positions.all?(&:hit?)
+  end
+
+  def hit_on?(x, y)
+    position = covers?(x, y)
+    position && position.hit?
+  end
+
+  def fire_at(x, y)
+    position = covers?(x, y)
+    position && position.hit!
   end
 end
