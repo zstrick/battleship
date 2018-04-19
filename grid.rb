@@ -1,7 +1,17 @@
 class Grid
+  def initialize
+    @ships = []
+  end
 
   def has_ship_on?(x, y)
-    false
+    @ships.any? { |ship| ship.covers?(x, y) }
+  end
+
+  def place_ship(ship, x, y, horizontal)
+    ship.place(x, y, horizontal)
+    unless @ships.any? { |s| s.overlaps_with?(ship) }
+      @ships << ship
+    end
   end
 
   def display
