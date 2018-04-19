@@ -9,4 +9,10 @@ class ComputerPlayer < Player
     end
     puts "#{name} has placed its ships."
   end
+
+  def call_shot
+    letter = ("A".."J").to_a.sample
+    number = (1..10).to_a.sample.to_s
+    letter + number
+  end
 end
