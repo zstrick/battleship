@@ -20,4 +20,16 @@ class Game
     puts "YOUR BOARD:"
     @players.first.display_ocean_grid
   end
+
+  def take_turn
+    shot = @players.first.call_shot
+    if @players.last.fire_at_coordinates(shot)
+      @players.first.record_hit(shot)
+      puts "Hit!"
+    else
+      @players.first.record_miss(shot)
+      puts "Miss!"
+    end
+    @players = @players.reverse
+  end
 end

@@ -15,4 +15,8 @@ class Player
   def record_miss(coordinates)
     grid.miss_opponent(coordinates)
   end
+
+  def fire_at_coordinates(coordinates)
+    grid.fire_at_coordinates(coordinates)
+  end
 end

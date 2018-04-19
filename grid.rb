@@ -3,8 +3,8 @@ class Grid
 
   def initialize
     @ships = []
-    @hits_on_other_opponent = []
-    @misses_on_other_opponenet = []
+    @hits_on_opponent = []
+    @misses_on_opponent = []
   end
 
   def has_ship_on?(x, y)
@@ -22,6 +22,10 @@ class Grid
   def fire_at(x, y)
     ship = has_ship_on?(x, y)
     ship && ship.fire_at(x, y)
+  end
+
+  def fire_at_coordinates(coordinate_string)
+    fire_at(x_of(coordinate_string), y_of(coordinate_string))
   end
 
   def sunk?
@@ -51,9 +55,9 @@ class Grid
 
   def display_shots
     display_with_block do |x, y|
-      if @hits_on_other_opponent.include?([x, y])
+      if @hits_on_opponent.include?([x, y])
         " + |"
-      elsif @misses_on_other_opponenet.include?([x, y])
+      elsif @misses_on_opponent.include?([x, y])
         " - |"
       else
         "   |"
@@ -80,7 +84,7 @@ class Grid
   end
 
   def hit_opponent(coordinate)
-    @hits_on_other_opponent << [x_of(coordinate), y_of(coordinate)]
+    @hits_on_opponent << [x_of(coordinate), y_of(coordinate)]
   end
 
   private
