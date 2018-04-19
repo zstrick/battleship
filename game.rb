@@ -32,4 +32,21 @@ class Game
     end
     @players = @players.reverse
   end
+
+  def game_over
+    @players.first.sunk?
+  end
+
+  def winner
+    @players.last if game_over
+  end
+
+  def play
+    welcome
+    place_ships
+    until game_over do
+      take_turn
+    end
+    puts "Congratulations, #{winner.name}!  You won!"
+  end
 end

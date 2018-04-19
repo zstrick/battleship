@@ -19,4 +19,8 @@ class Player
   def fire_at_coordinates(coordinates)
     grid.fire_at_coordinates(coordinates)
   end
+
+  def sunk?
+    grid.sunk?
+  end
 end
