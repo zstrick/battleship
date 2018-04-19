@@ -20,6 +20,18 @@ class Grid
     ship && ship.fire_at(x, y)
   end
 
+  def sunk?
+    !@ships.empty? && @ships.all? { |ship| ship.sunk? }
+  end
+
+  def x_of(coordinates)
+    coordinates[/\d+/].to_i
+  end
+
+  def y_of(coordinates)
+    coordinates[0].ord - 'A'.ord + 1
+  end
+
   def display
     display_with_block do |x, y|
       ship = has_ship_on?(x, y)

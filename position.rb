@@ -7,7 +7,11 @@ class Position
   end
 
   def hit!
-    @hit = true
+    if @hit
+      false
+    else
+      @hit = true
+    end
   end
 
   def hit?
