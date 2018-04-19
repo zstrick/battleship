@@ -19,6 +19,11 @@ class BattleshipTest < Minitest::Test
     :alpha
   end
 
+  def setup
+    #no console output when running tests
+    $stdout = StringIO.new
+  end
+
   def test_01_player_classes_exist
     assert Player
     assert HumanPlayer

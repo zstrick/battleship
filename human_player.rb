@@ -28,4 +28,12 @@ class HumanPlayer < Player
     puts "Dave, please enter the coordinates for your next shot (e.g. 'B10'):"
     shot_coordinates = get_user_input
   end
+
+  def display_ocean_grid
+    grid.display
+  end
+
+  def display_target_grid
+    grid.display_shots
+  end
 end

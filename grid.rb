@@ -1,8 +1,10 @@
 class Grid
   attr_reader :ships
-  
+
   def initialize
     @ships = []
+    @hits_on_other_opponent = []
+    @misses_on_other_opponenet = []
   end
 
   def has_ship_on?(x, y)
@@ -47,6 +49,18 @@ class Grid
     end
   end
 
+  def display_shots
+    display_with_block do |x, y|
+      if @hits_on_other_opponent.include?([x, y])
+        " + |"
+      elsif @misses_on_other_opponenet.include?([x, y])
+        " - |"
+      else
+        "   |"
+      end
+    end
+  end
+
   def display_with_block
     display_header
     display_line
@@ -59,6 +73,14 @@ class Grid
       puts line
     end
     display_line
+  end
+
+  def miss_opponent(coordinate)
+    @misses_on_opponent << [x_of(coordinate), y_of(coordinate)]
+  end
+
+  def hit_opponent(coordinate)
+    @hits_on_other_opponent << [x_of(coordinate), y_of(coordinate)]
   end
 
   private
